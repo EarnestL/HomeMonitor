@@ -166,9 +166,11 @@ void http_task(void *pvParameters) {
     while (true) {
         // Try to take the mutex
         if (xSemaphoreTake(mutex, portMAX_DELAY)) {
-            float coverage = temp_data_count / (temp_error_count + temp_data_count) * 100;
 
             StaticJsonDocument<200> data;
+
+            //temperature
+            float coverage = temp_data_count / (temp_error_count + temp_data_count) * 100;
             data["val"] = avg_temp;
             data["coverage"] = coverage;
 
@@ -180,6 +182,20 @@ void http_task(void *pvParameters) {
 
             temp_data_count = 0;
             temp_error_count = 0;
+
+            //humidity
+            float coverage = hum_data_count / (hum_error_count + hum_data_count) * 100;
+            data["val"] = avg_hum;
+            data["coverage"] = coverage;
+
+            int res = 0;
+            while (!res){
+                res = http_request(data, "/humidity");
+            }
+            Serial.println("DATA SEND!");
+
+            hum_data_count = 0;
+            hum_error_count = 0;
             
             // Give back the mutex
             xSemaphoreGive(mutex);

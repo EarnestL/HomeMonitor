@@ -1,0 +1,25 @@
+
+html,
+body,
+#root,
+.App {
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  font-family: Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-scrollbar {
+    display: none;
+  }
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+p, h1, h2, h3, h4{
+  margin: 0;
+  padding: 0;
+}

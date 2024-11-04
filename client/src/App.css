@@ -1,0 +1,25 @@
+/* src/index.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.App {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+
+@keyframes fadeInFill {
+  from {
+      fill-opacity: 0;
+  }
+  to {
+      fill-opacity: 0.3; /* Adjust this to match your desired final fill opacity */
+  }
+}
+
+.fade-in {
+  animation: fadeInFill 2s ease-out forwards; /* Adjust duration as needed */
+}
+

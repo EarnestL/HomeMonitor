@@ -11,7 +11,7 @@ const getTemp = (req, res) => {
         } else {
           const timeZone = 'America/Los_Angeles';
           // Convert each date in temps to PST
-          const tempsWithPST = temps.map(temp => {
+          /*const tempsWithPST = temps.map(temp => {
             const dateInUTC = new Date(temp.recorded_at);
             const dateInPST = new Date(dateInUTC.getTime() - 8 * 60 * 60 * 1000);
 
@@ -21,8 +21,8 @@ const getTemp = (req, res) => {
               ...temp,
               recorded_at: dateInPSTFormatted
             };
-        });
-        res.json(tempsWithPST);
+        });*/
+        res.json();
         }
     });
 };

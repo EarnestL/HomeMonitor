@@ -13,7 +13,7 @@ const getTemp = (req, res) => {
           // Convert each date in temps to PST
           const tempsWithPST = temps.map(temp => {
             const dateInUTC = new Date(temp.recorded_at);
-            const dateInPST = new Date(dateInUTC.getTime() - 16 * 60 * 60 * 1000);
+            const dateInPST = new Date(dateInUTC.getTime() - 8 * 60 * 60 * 1000);
 
             const dateInPSTFormatted = dateInPST.toISOString().slice(0, -1) + "Z";
             

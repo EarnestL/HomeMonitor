@@ -22,7 +22,7 @@ const getTemp = (req, res) => {
               recorded_at: dateInPSTFormatted
             };
         });
-        res.json(tempsWithPST);
+        res.json(temps);
         }
     });
 };

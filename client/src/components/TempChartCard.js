@@ -2,44 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 import { useAnimatedData } from './useAnimatedData';
 
-const initialData = [
-    { time: new Date('2024-11-03T07:00').getTime(), temp: 1.1, coverage: 100 },
-    { time: new Date('2024-11-03T07:30').getTime(), temp: 0, coverage: 95 },
-    { time: new Date('2024-11-03T08:00').getTime(), temp: 1.7, coverage: 92 },
-    { time: new Date('2024-11-03T08:30').getTime(), temp: 3.3, coverage: 88 },
-    { time: new Date('2024-11-03T09:00').getTime(), temp: 4.4, coverage: 85 },
-    { time: new Date('2024-11-03T09:30').getTime(), temp: 5.6, coverage: 80 },
-    { time: new Date('2024-11-03T10:00').getTime(), temp: 7.2, coverage: 78 },
-    { time: new Date('2024-11-03T10:30').getTime(), temp: 8.3, coverage: 85 },
-    { time: new Date('2024-11-03T11:00').getTime(), temp: 10, coverage: 90 },
-    { time: new Date('2024-11-03T11:30').getTime(), temp: 12.8, coverage: 93 },
-    { time: new Date('2024-11-03T12:00').getTime(), temp: 15.6, coverage: 95 },
-    { time: new Date('2024-11-03T12:30').getTime(), temp: 16.7, coverage: 97 },
-    { time: new Date('2024-11-03T13:00').getTime(), temp: 26.7, coverage: 98 },
-    { time: new Date('2024-11-03T13:30').getTime(), temp: 23.9, coverage: 90 },
-    { time: new Date('2024-11-03T14:00').getTime(), temp: 25.6, coverage: 88 },
-    { time: new Date('2024-11-03T14:30').getTime(), temp: 27.8, coverage: 85 },
-    { time: new Date('2024-11-03T15:00').getTime(), temp: 37.8, coverage: 80 },
-    { time: new Date('2024-11-03T15:30').getTime(), temp: 35, coverage: 75 },
-    { time: new Date('2024-11-03T16:00').getTime(), temp: 32.2, coverage: 78 },
-    { time: new Date('2024-11-03T16:30').getTime(), temp: 31.1, coverage: 82 },
-    { time: new Date('2024-11-03T17:00').getTime(), temp: 29.4, coverage: 85 },
-    { time: new Date('2024-11-03T17:30').getTime(), temp: 27.8, coverage: 87 },
-    { time: new Date('2024-11-03T18:00').getTime(), temp: 26.7, coverage: 90 },
-    { time: new Date('2024-11-03T18:30').getTime(), temp: 25.6, coverage: 92 },
-    { time: new Date('2024-11-03T19:00').getTime(), temp: 24.4, coverage: 94 },
-    { time: new Date('2024-11-03T19:30').getTime(), temp: 23.3, coverage: 96 },
-    { time: new Date('2024-11-03T20:00').getTime(), temp: 21.1, coverage: 98 },
-    { time: new Date('2024-11-03T20:30').getTime(), temp: 20, coverage: 97 },
-    { time: new Date('2024-11-03T21:00').getTime(), temp: 18.3, coverage: 95 },
-    { time: new Date('2024-11-03T21:15').getTime(), temp: 18.3, coverage: 90 },
-    { time: new Date('2024-11-03T21:30').getTime(), temp: 16.7, coverage: 85 },
-    { time: new Date('2024-11-03T22:00').getTime(), temp: 15.6, coverage: 80 },
-];
-
-const maxValue = Math.max(...initialData.map(d => d.temp));
-const calculatedMax = Math.ceil(maxValue / 5) * 5;
-
 const timeFormatter = (timestamp) => {
     const date = new Date(timestamp);
     return `${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`;
@@ -72,7 +34,9 @@ const CustomTooltip = ({ active, payload, label }) => {
     return null;
 };
 
-function TempChartCard() {
+function TempChartCard({initialData}) {
+    const maxValue = Math.max(...initialData.map(d => d.temp));
+    const calculatedMax = Math.ceil(maxValue / 5) * 5;
     const processedData = initialData.map((item) => ({
         ...item,
         coverage_val: item.temp * (item.coverage / 100), 
@@ -125,7 +89,7 @@ function TempChartCard() {
             </div>
 
             {/* Chart */}
-            <div className="w-4/5 h-full">
+            <div className="w-4/5 h-full ml-2">
                 <ResponsiveContainer width="100%" height="100%">
                     <AreaChart data={data}>
                         <CartesianGrid strokeDasharray="3 3" />
@@ -149,7 +113,7 @@ function TempChartCard() {
                                 angle: -90, 
                                 position: "insideLeft", 
                                 offset: 5, 
-                                dy: 40,
+                                dy: 60,
                                 style: { fontSize: '20px', fontFamily: 'monospace'} }}
                             fill= "#FFB38A"  // Set the color of the label text
                             tick={{ fontSize: 18, fontFamily: 'monospace'}} // Tailwind-inspired font properties

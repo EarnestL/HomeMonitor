@@ -9,7 +9,20 @@ const getTemp = (req, res) => {
         if (err) {
             res.status(500).json({ error: err.message });
         } else {
-            res.json(temps);
+          const timeZone = 'America/Los_Angeles';
+          // Convert each date in temps to PST
+          const tempsWithPST = temps.map(temp => {
+            const dateInUTC = new Date(temp.recorded_at);
+            const dateInPST = new Date(dateInUTC.getTime() - 16 * 60 * 60 * 1000);
+
+            const dateInPSTFormatted = dateInPST.toISOString().slice(0, -1) + "Z";
+            
+            return {
+              ...temp,
+              recorded_at: dateInPSTFormatted
+            };
+        });
+        res.json(tempsWithPST);
         }
     });
 };

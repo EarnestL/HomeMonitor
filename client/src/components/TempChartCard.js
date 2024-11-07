@@ -42,7 +42,7 @@ function TempChartCard({initialData}) {
         coverage_val: item.temp * (item.coverage / 100), 
     }));
 
-    const data = useAnimatedData(processedData, 800);
+    const data = useAnimatedData(processedData, 400);
     const [fillOpacity, setFillOpacity] = useState(0);
     const hourlyTicks = generateHourlyTicks(initialData);
 
@@ -54,7 +54,7 @@ function TempChartCard({initialData}) {
     useEffect(() => {
         const fillDelay = 1000;
         const increment = 0.05;
-        const intervalTime = 50;
+        const intervalTime = 25;
         const targetOpacity = 0.3;
 
         const timer = setTimeout(() => {

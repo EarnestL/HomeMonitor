@@ -12,7 +12,7 @@ function TempTableCard({ initialData }) {
                     <thead className="sticky top-0 bg-gray-200 border-b">
                         <tr>
                             <th className="py-2 px-2 text-left text-gray-500 font-semibold">Date</th>
-                            <th className="py-2 px-2 text-left text-gray-500 font-semibold">Time</th>
+                            <th className="py-2 px-2 text-left text-gray-500 font-semibold w-32">Time</th>
                             <th className="py-2 px-2 text-left text-gray-500 font-semibold">Temperature (C)</th>
                             <th className="py-2 px-2 text-left text-gray-500 font-semibold">Coverage</th>
                         </tr>

@@ -5,9 +5,12 @@ const getTemp = (filter, callback) => {
     let query = 'SELECT * FROM temperature';
     const queryParams = [];
 
-    if (filter.date){
-        query += ' WHERE DATE(recorded_at) = ?';
-        queryParams.push(filter.date);
+    if (filter.recorded_at){
+        const {$gte, $lte} = filter.recorded_at;
+        if ($gte, $lte){
+            query += ' WHERE recorded_at BETWEEN ? AND ? ';
+            queryParams.push($gte, $lte);
+        }
     }
     
     db.query(query, queryParams, (err, results) => {

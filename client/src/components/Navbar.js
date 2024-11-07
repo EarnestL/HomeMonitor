@@ -30,7 +30,7 @@ function Navbar() {
             <div className="flex space-x-4">
                 {/* Temperature Tab */}
                 <div
-                    className={`px-4 py-2 -mb-4 rounded-t-xl font-bold cursor-pointer transition ${activeTab === '/temperature' ? `${activeBackgroundColor} text-blue-500 text-xl` : 'bg-gray-300 text-gray-600 hover:bg-gray-400 rounded-xl -mb-1'}`}
+                    className={`px-4 py-2 -mb-4 rounded-t-xl font-bold cursor-pointer transition ${activeTab === '/temperature' ? `${activeBackgroundColor} text-blue-500 text-xl` : 'bg-gray-300 text-gray-600 hover:bg-gray-400 rounded-xl -mb-2'}`}
                     onClick={() => handleTabClick('/temperature')}
                 >
                     Temperature
@@ -38,7 +38,7 @@ function Navbar() {
 
                 {/* Humidity Tab */}
                 <div
-                    className={`px-4 py-2 -mb-4 rounded-t-xl font-bold cursor-pointer transition ${activeTab === '/humidity' ? `${activeBackgroundColor} text-blue-500 text-xl` : 'bg-gray-300 text-gray-600 hover:bg-gray-400 rounded-xl -mb-1'}`}
+                    className={`px-4 py-2 -mb-4 rounded-t-xl font-bold cursor-pointer transition ${activeTab === '/humidity' ? `${activeBackgroundColor} text-blue-500 text-xl` : 'bg-gray-300 text-gray-600 hover:bg-gray-400 rounded-xl -mb-2'}`}
                     onClick={() => handleTabClick('/humidity')}
                 >
                     Humidity
@@ -46,7 +46,7 @@ function Navbar() {
 
                 {/* Info Tab */}
                 <div
-                    className={` text-blue-400 px-4 py-2 -mb-4 rounded-t-full font-bold cursor-pointer transition ${activeTab === '/info' ? `${activeBackgroundColor} text-xl` : 'bg-gray-300 hover:bg-gray-400 rounded-full -mb-1'}`}
+                    className={` text-blue-400 px-4 py-2 -mb-4 rounded-t-full font-bold cursor-pointer transition ${activeTab === '/info' ? `${activeBackgroundColor} text-xl` : 'bg-gray-300 hover:bg-gray-400 rounded-full -mb-2'}`}
                     onClick={() => handleTabClick('/info')}
                 >
                     i

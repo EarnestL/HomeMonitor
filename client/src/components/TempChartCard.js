@@ -46,6 +46,11 @@ function TempChartCard({initialData}) {
     const [fillOpacity, setFillOpacity] = useState(0);
     const hourlyTicks = generateHourlyTicks(initialData);
 
+    const averageTemp = (initialData.reduce((sum, item) => sum + item.temp, 0) / initialData.length).toFixed(2);
+    const accuracy = (initialData.reduce((sum, item) => sum + item.coverage, 0) / initialData.length).toFixed(2);
+    const maxTemp = (initialData.reduce((max, item) => (item.temp > max ? item.temp : max), -Infinity)).toFixed(2);
+    const minTemp = (initialData.reduce((min, item) => (item.temp < min ? item.temp : min), Infinity)).toFixed(2);  
+
     useEffect(() => {
         const fillDelay = 1000;
         const increment = 0.05;
@@ -75,15 +80,15 @@ function TempChartCard({initialData}) {
             <div className="text-gray-400 lg:w-1/4 flex flex-col flex-wrap max-w-full break-words">
                 <div className="ml-6">
                     <p className="text-2xl lg:text-4xl text-grey-400">Avg</p>
-                    <p className="text-4xl lg:text-7xl text-orange-300 font-bold">12.67C</p>
+                    <p className="text-4xl lg:text-7xl text-orange-300 font-bold">{averageTemp}C</p>
                     <p className="text-lg lg:text-2xl text-gray-400 mt-2">Accuracy</p>
-                    <p className="text-2xl lg:text-4xl text-green-300 font-bold">83%</p>
+                    <p className="text-2xl lg:text-4xl text-green-300 font-bold">{accuracy}%</p>
                 </div>
                 <div className = "ml-6 mt-6">
                     <p className="text-sm lg:text-base ">Logging Interval: <span  className ="text-green-300 font-bold">10 mins</span></p>
                     <p className="text-sm lg:text-base ">Sampling Interval: <span  className ="text-green-300 font-bold">10 secs</span></p>
-                    <p className="text-sm lg:text-base ">Peak Temp: <span  className ="text-orange-300 font-bold">37.8C</span></p>
-                    <p className="text-sm lg:text-base ">Lowest Temp: <span  className ="text-blue-300 font-bold">0.0C</span></p>
+                    <p className="text-sm lg:text-base ">Peak Temp: <span  className ="text-orange-300 font-bold">{maxTemp}C</span></p>
+                    <p className="text-sm lg:text-base ">Lowest Temp: <span  className ="text-blue-300 font-bold">{minTemp}C</span></p>
                 </div>
 
             </div>

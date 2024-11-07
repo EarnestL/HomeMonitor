@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import TempChartCard from '../components/TempChartCard';
+import LoadingDots from '../components/LoadingDots';
 
 function TempPage() {
 
     const [initialData, setInitialData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [showDots, setShowDots] = useState([false, false, false]);
 
     // Replace this with the actual API endpoint
     const apiEndpoint = `${process.env.REACT_APP_API_BASE}/temperature`;
@@ -38,11 +40,14 @@ function TempPage() {
     }, []);
 
     return (
-        <div className="h-screen overflow-y-auto mt-20 w-full flex flex-col items-start">
+        <div className="h-screen overflow-y-auto w-full flex flex-col items-center">
             {loading ? (
-                <p>loading...</p>
+                <div className="h-screen w-full flex items-center justify-center">  
+                    <LoadingDots/> 
+                </div>
+
             ) : (
-                <section className="w-full px-20 space-y-8"> {/* Added space-y-8 for vertical spacing */}
+                <section className="w-full px-20 space-y-8 mt-20"> {/* Added space-y-8 for vertical spacing */}
                     <div className="p-4"> {/* Padding around TempChartCard */}
                         <TempChartCard initialData={initialData} />
                     </div>

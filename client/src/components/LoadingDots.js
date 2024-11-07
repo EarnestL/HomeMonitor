@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LoadingPage = () => {
+const LoadingDots = () => {
     return (
         <div className="flex space-x-2">
             <div className="w-2 h-2 bg-gray-600 rounded-full animate-bounce-1"></div>
@@ -10,7 +10,7 @@ const LoadingPage = () => {
     );
 };
 
-export default LoadingPage;
+export default LoadingDots;
 
 
 

@@ -75,7 +75,7 @@ function TempChartCard({initialData}) {
     }, []);
 
     return (
-        <div className="bg-white rounded-lg shadow-lg p-8 w-full overflow-hidden" style={{ height: '60vh', maxWidth: '100vw', display: 'flex', gap: '20px', alignItems: 'center' }}>
+        <div className="bg-white rounded-lg shadow-lg p-8 w-full overflow-hidden h-[60vh] mx-auto" style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
             {/* Sidebar Information */}
             <div className="text-gray-400 lg:w-1/4 flex flex-col flex-wrap max-w-full break-words">
                 <div className="ml-6">
@@ -117,7 +117,7 @@ function TempChartCard({initialData}) {
                                 value: "Temperature (C)", 
                                 angle: -90, 
                                 position: "insideLeft", 
-                                offset: 5, 
+                                offset: 18, 
                                 dy: 60,
                                 style: { fontSize: '20px', fontFamily: 'monospace'} }}
                             fill= "#FFB38A"  // Set the color of the label text

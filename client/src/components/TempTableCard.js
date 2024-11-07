@@ -2,7 +2,7 @@ import React from 'react';
 
 function TempTableCard({ initialData }) {
     return (
-        <div className="bg-white rounded-lg shadow-lg p-6 w-1/2 h-[50vh] mx-auto overflow-hidden">
+        <div className="bg-white rounded-lg shadow-lg p-6 h-[60vh] mx-auto overflow-hidden">
             {/* Title with Margin Bottom */}
             <h2 className="text-xl font-semibold text-gray-500 mb-2">Data Points</h2>
             

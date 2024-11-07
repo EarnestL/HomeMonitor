@@ -85,8 +85,8 @@ function TempChartCard({initialData}) {
                     <p className="text-2xl lg:text-4xl text-green-300 font-bold">{accuracy}%</p>
                 </div>
                 <div className = "ml-6 mt-6">
-                    <p className="text-sm lg:text-base ">Logging Interval: <span  className ="text-green-300 font-bold">10 mins</span></p>
-                    <p className="text-sm lg:text-base ">Sampling Interval: <span  className ="text-green-300 font-bold">10 secs</span></p>
+                    <p className="text-sm lg:text-base ">Logging Interval: <span  className ="text-green-600 font-bold">10 mins</span></p>
+                    <p className="text-sm lg:text-base ">Sampling Interval: <span  className ="text-green-600 font-bold">10 secs</span></p>
                     <p className="text-sm lg:text-base ">Peak Temp: <span  className ="text-orange-300 font-bold">{maxTemp}C</span></p>
                     <p className="text-sm lg:text-base ">Lowest Temp: <span  className ="text-blue-300 font-bold">{minTemp}C</span></p>
                 </div>

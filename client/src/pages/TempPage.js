@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import TempChartCard from '../components/TempChartCard';
 import LoadingDots from '../components/LoadingDots';
+import TempTableCard from '../components/TempTableCard';
 
 function TempPage() {
 
@@ -47,9 +48,12 @@ function TempPage() {
                 </div>
 
             ) : (
-                <section className="w-full px-20 space-y-8 mt-20"> {/* Added space-y-8 for vertical spacing */}
-                    <div className="p-4"> {/* Padding around TempChartCard */}
+                <section className="w-full px-20 space-y-8 mt-20 mb-8"> {/* Added space-y-8 for vertical spacing */}
+                    <div>
                         <TempChartCard initialData={initialData} />
+                    </div>
+                    <div>
+                        <TempTableCard initialData={initialData} />
                     </div>
                 </section>
             )}

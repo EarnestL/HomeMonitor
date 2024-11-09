@@ -45,9 +45,9 @@ function TempDataDisplay() {
     };
 
     return (
-        <div className="w-full h-full p-4 space-y-4">
+        <div className="w-full h-full">
             {/* Filter Options */}
-            <div className="flex justify-end mb-4">
+            <div className="flex justify-start mb-2">
                 <button
                     className={`px-4 py-2 mx-2 rounded ${filter === 'today' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
                     onClick={() => handleFilterChange('today')}
@@ -63,9 +63,8 @@ function TempDataDisplay() {
             </div>
 
             {/* Data Display (Show Skeleton if Loading) */}
-            <div className="flex flex-col lg:flex-row w-full h-[70vh] gap-6">
+            <div className="flex flex-col lg:flex-row w-full h-full gap-6">
                 {loading ? (
-                    // Skeleton Loading Boxes
                     <>
                         <div className="w-full lg:w-2/3 h-full">
                             <ChartPlaceHolder />
@@ -76,11 +75,9 @@ function TempDataDisplay() {
                     </>
                 ) : (
                     <>
-                        {/* Chart Card with 60% width on large screens */}
                         <div className="w-full lg:w-2/3 h-full">
                             <TempChartCard initialData={initialData} />
                         </div>
-                        {/* Table Card with 40% width on large screens */}
                         <div className="w-full lg:w-1/3 h-full">
                             <TempTableCard initialData={initialData} />
                         </div>
@@ -92,5 +89,6 @@ function TempDataDisplay() {
 }
 
 export default TempDataDisplay;
+
 
 

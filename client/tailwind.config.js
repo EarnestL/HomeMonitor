@@ -21,11 +21,16 @@ module.exports = {
           '0%, 100%': { opacity: 1 },
           '50%': { opacity: 0.5 },
         },
+        smoothPulse: {
+          '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+          '50%': { transform: 'scale(1.3)', opacity: '0.6' },
+        },
       },
       animation: {
         'bounce-1': 'bounce-sequential 1.2s ease-in-out 0s infinite',
         'bounce-2': 'bounce-sequential 1.2s ease-in-out 0.2s infinite',
         'bounce-3': 'bounce-sequential 1.2s ease-in-out 0.4s infinite',
+        'smooth-pulse': 'smoothPulse 2s infinite ease-in-out',
       },
     },
   },

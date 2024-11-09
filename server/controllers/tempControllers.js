@@ -2,7 +2,7 @@ const tempModel = require('../models/tempModel');
 
 // Controller to get temperature
 const getTemp = (req, res) => {
-    const {pastDay, pastWeek} = req.query;
+    const {pastDay, pastWeek, recent} = req.query;
 
     let filter = {};
 
@@ -17,6 +17,9 @@ const getTemp = (req, res) => {
       const pastWeek = new Date(now);
       pastWeek.setUTCDate(pastWeek.getUTCDate() - 7);
       filter = {recorded_at: {$gte: pastWeek.toISOString(), $lte: now.toISOString()}};
+    }
+    else if (recent == 'true'){
+      filter = {recent: true};
     }
 
     tempModel.getTemp(filter, (err, temps) => {

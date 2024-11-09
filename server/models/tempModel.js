@@ -11,6 +11,8 @@ const getTemp = (filter, callback) => {
             query += ' WHERE recorded_at BETWEEN ? AND ? ';
             queryParams.push($gte, $lte);
         }
+    } else if (filter.recent){
+        query += ' WHERE recorded_at = (SELECT MAX(recorded_at) FROM temperature) ';
     }
     
     db.query(query, queryParams, (err, results) => {

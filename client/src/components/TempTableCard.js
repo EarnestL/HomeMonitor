@@ -22,8 +22,8 @@ function TempTableCard({ initialData }) {
                             <tr key={index} className="border-b">
                                 <td className="py-2 px-2 text-gray-500">{new Date(item.time).toLocaleDateString()}</td>
                                 <td className="py-2 px-2 text-green-700">{new Date(item.time).toLocaleTimeString()}</td>
-                                <td className="py-2 px-2 text-orange-500">{item.temp}</td>
-                                <td className="py-2 px-2 text-gray-500">{item.coverage}%</td>
+                                <td className="py-2 px-2 text-orange-500">{item.temp.toFixed(4)}</td>
+                                <td className="py-2 px-2 text-gray-500">{item.coverage.toFixed(0)}%</td>
                             </tr>
                         ))}
                     </tbody>

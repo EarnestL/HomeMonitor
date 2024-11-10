@@ -49,13 +49,13 @@ function TempDataDisplay() {
             {/* Filter Options */}
             <div className="flex justify-start mb-2">
                 <button
-                    className={`px-4 py-2 mx-2 rounded ${filter === 'today' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+                    className={`px-4 py-2 mx-2 rounded ${filter === 'today' ? 'bg-green-400 text-white' : 'bg-gray-200 text-gray-700'}`}
                     onClick={() => handleFilterChange('today')}
                 >
                     Today
                 </button>
                 <button
-                    className={`px-4 py-2 mx-2 rounded ${filter === 'pastWeek' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+                    className={`px-4 py-2 mx-2 rounded ${filter === 'pastWeek' ? 'bg-green-400 text-white' : 'bg-gray-200 text-gray-700'}`}
                     onClick={() => handleFilterChange('pastWeek')}
                 >
                     Past Week

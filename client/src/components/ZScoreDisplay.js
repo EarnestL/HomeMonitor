@@ -56,7 +56,7 @@ function ZScoreDisplayCard({ dataPoints, currentValue }) {
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
                 style={{
-                    background: "linear-gradient(to right, #FFC1C1, #DFF2D8, #FFC1C1)", // Soft red to light green to soft red
+                    background: "linear-gradient(to right, #FFC1C1, #DFF2D8, #FFC1C1)",
                 }}
             >
                 {/* Tooltip */}
@@ -71,9 +71,13 @@ function ZScoreDisplayCard({ dataPoints, currentValue }) {
 
                 {/* Minimalistic Indicator Line */}
                 <div
-                    className="absolute top-0 bottom-0 w-[2px] bg-blue-500"
-                    style={{ left: `${indicatorPosition}%`, transform: "translateX(-50%)" }}
-                />
+                    className="absolute w-1 h-6 bg-blue-500 rounded-full"
+                    style={{ 
+                        left: `${indicatorPosition}%`, 
+                        transform: "translateX(-50%)", 
+                        top: "-8px"
+                    }}
+/>
             </div>
 
             {/* Interpretation of Mean and Standard Deviation */}

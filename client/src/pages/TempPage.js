@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import TempDataDisplay from '../components/TempDataDisplay';
 import LoadingDots from '../components/LoadingDots';
 import LiveTempCard from '../components/LiveTempCard';
-import ZScoreDisplay from '../components/ZScoreDisplay';
+import TempZScoreCard from '../components/TempZScoreCard';
 
 function TempPage() {
     const [initialData, setInitialData] = useState([]);
@@ -31,7 +31,7 @@ function TempPage() {
                         </div>
                         {/* Limit the height of ZScoreDisplay */}
                         <div className="w-full lg:w-3/4 h-[350px]">
-                            <ZScoreDisplay dataPoints={dataPoints} currentValue={currentValue} />
+                            <TempZScoreCard />
                         </div>
                     </section>
                 </>

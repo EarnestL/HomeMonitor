@@ -21,11 +21,11 @@ const generateHourlyTicks = (data) => {
 
 const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
-        const temperatureData = payload.find((entry) => entry.dataKey === 'temp');
-        if (temperatureData) {
+        const humidityData = payload.find((entry) => entry.dataKey === 'hum');
+        if (humidityData) {
             return (
                 <div className="custom-tooltip" style={{ backgroundColor: 'grey', padding: '5px', border: '1px solid #ccc' }}>
-                    <p>{`Temperature: ${temperatureData.value}°C`}</p>
+                    <p>{`Humidity: ${humidityData.value}%RH`}</p>
                     <p>{`Time: ${timeFormatter(label)} PST`}</p>
                 </div>
             );
@@ -34,22 +34,22 @@ const CustomTooltip = ({ active, payload, label }) => {
     return null;
 };
 
-function TempChartCard({initialData}) {
-    const maxValue = Math.max(...initialData.map(d => d.temp));
+function HumChartCard({initialData}) {
+    const maxValue = Math.max(...initialData.map(d => d.hum));
     const calculatedMax = Math.ceil(maxValue / 5) * 5;
     const processedData = initialData.map((item) => ({
         ...item,
-        coverage_val: item.temp * (item.coverage / 100), 
+        coverage_val: item.hum * (item.coverage / 100), 
     }));
 
     const data = useAnimatedData(processedData, 400);
     const [fillOpacity, setFillOpacity] = useState(0);
     const hourlyTicks = generateHourlyTicks(initialData);
 
-    const averageTemp = (initialData.reduce((sum, item) => sum + item.temp, 0) / initialData.length).toFixed(2);
+    const averageHum = (initialData.reduce((sum, item) => sum + item.hum, 0) / initialData.length).toFixed(2);
     const accuracy = (initialData.reduce((sum, item) => sum + item.coverage, 0) / initialData.length).toFixed(2);
-    const maxTemp = (initialData.reduce((max, item) => (item.temp > max ? item.temp : max), -Infinity)).toFixed(2);
-    const minTemp = (initialData.reduce((min, item) => (item.temp < min ? item.temp : min), Infinity)).toFixed(2);  
+    const maxHum = (initialData.reduce((max, item) => (item.hum > max ? item.hum : max), -Infinity)).toFixed(2);
+    const minHum = (initialData.reduce((min, item) => (item.hum < min ? item.hum : min), Infinity)).toFixed(2);  
 
     useEffect(() => {
         const fillDelay = 1000;
@@ -80,15 +80,15 @@ function TempChartCard({initialData}) {
             <div className="text-gray-400 lg:w-1/4 flex flex-col flex-wrap max-w-full break-words">
                 <div className="ml-6">
                     <p className="text-2xl lg:text-3xl text-grey-400">Avg</p>
-                    <p className="text-4xl lg:text-6xl text-orange-300 font-bold">{averageTemp}°C</p>
+                    <p className="text-4xl lg:text-6xl text-blue-300 font-bold">{averageHum}%</p>
                     <p className="text-lg lg:text-2xl text-gray-400 mt-2">Accuracy</p>
                     <p className="text-2xl lg:text-4xl text-green-300 font-bold">{accuracy}%</p>
                 </div>
                 <div className = "ml-6 mt-6">
                     <p className="text-sm lg:text-base ">Logging Interval: <span  className ="text-green-600 font-bold">10 mins</span></p>
                     <p className="text-sm lg:text-base ">Sampling Interval: <span  className ="text-green-600 font-bold">10 secs</span></p>
-                    <p className="text-sm lg:text-base ">Peak Temp: <span  className ="text-orange-300 font-bold">{maxTemp}°C</span></p>
-                    <p className="text-sm lg:text-base ">Lowest Temp: <span  className ="text-blue-300 font-bold">{minTemp}°C</span></p>
+                    <p className="text-sm lg:text-base ">Peak Humidity: <span  className ="text-blue-400 font-bold">{maxHum}%</span></p>
+                    <p className="text-sm lg:text-base ">Lowest Humidity: <span  className ="text-blue-300 font-bold">{minHum}%</span></p>
                 </div>
 
             </div>
@@ -114,7 +114,7 @@ function TempChartCard({initialData}) {
                             tickCount={calculatedMax / 5 + 1} 
                             interval={0} 
                             label={{ 
-                                value: "Temperature (°C)", 
+                                value: "Humidity (%RH)", 
                                 angle: -90, 
                                 position: "insideLeft", 
                                 offset: 18, 
@@ -125,14 +125,14 @@ function TempChartCard({initialData}) {
                         />
                         <Tooltip content={<CustomTooltip />} />
 
-                        {/* Temperature Area */}
+                        {/* Humidity Area */}
                         <Area
                             type="monotone"
-                            dataKey="temp"
-                            stroke="#FFB38A"
-                            fill="#FFDBBB"
+                            dataKey="hum"
+                            stroke="#87CEEB"
+                            fill="#ADD8E6"
                             fillOpacity={fillOpacity}
-                            name="Temperature"
+                            name="Humidity"
                             strokeWidth={2}
                         />
 
@@ -140,8 +140,8 @@ function TempChartCard({initialData}) {
                         <Area
                             type="monotone"
                             dataKey="coverage_val"
-                            stroke="#FFDBBB"
-                            fill="#FFDBBB"
+                            stroke="#ADD8E6"
+                            fill="#ADD8E6"
                             fillOpacity={0.3}
                             isAnimationActive={false}
                             connectNulls
@@ -154,7 +154,7 @@ function TempChartCard({initialData}) {
     );
 }
 
-export default TempChartCard;
+export default HumChartCard;
 
 
 

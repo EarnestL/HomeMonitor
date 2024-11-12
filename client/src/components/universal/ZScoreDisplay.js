@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function ZScoreDisplayCard({ dataPoints, currentValue }) {
+function ZScoreDisplayCard({ dataPoints, currentValue, color}) {
     // Calculate mean
     const mean = dataPoints.reduce((sum, value) => sum + value, 0) / dataPoints.length;
 
@@ -47,7 +47,7 @@ function ZScoreDisplayCard({ dataPoints, currentValue }) {
             {/* Display Z-score of Current Value */}
             <div className="text-gray-400 w-full text-center">
                 <p className="text-2xl lg:text-4xl">Z-Score</p>
-                <p className="text-4xl lg:text-7xl text-orange-300 font-bold">{zScore.toFixed(2)}</p>
+                <p className="text-4xl lg:text-7xl font-bold text-green-400">{zScore.toFixed(2)}</p>
             </div>
 
             {/* Minimalistic Gradient Bar */}
@@ -84,7 +84,7 @@ function ZScoreDisplayCard({ dataPoints, currentValue }) {
             <div className="text-gray-500 text-center">
                 <p>Mean: <span className="text-green-600 font-bold">{mean.toFixed(2)}</span></p>
                 <p>Standard Deviation: <span className="text-green-600 font-bold">{standardDeviation.toFixed(2)}</span></p>
-                <p>Current Value: <span className="text-orange-400 font-bold">{currentValue}</span></p>
+                <p>Current Value: <span className={`font-bold ${color === 'orange' ? "text-orange-400" : color === 'blue' ? "text-blue-400" : "text-gray-300"}`}>{currentValue}</span></p>
             </div>
         </div>
     );

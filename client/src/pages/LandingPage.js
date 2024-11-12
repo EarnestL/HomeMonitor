@@ -9,7 +9,7 @@ function LandingPage() {
     };
 
     const handleHumidityClick = () => {
-        console.log("Humidity clicked");
+        navigate('/humidity');
     };
 
     return (

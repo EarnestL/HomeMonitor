@@ -8,11 +8,6 @@ function TempPage() {
     const [initialData, setInitialData] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const dataPoints = [50, 55, 60, 53, 58, 62, 57, 59, 56, 54];
-    
-    // Test current value for which to calculate the Z-score
-    const currentValue = 65; // You can adjust this to test different values
-
     return (
         <div className="h-screen overflow-y-auto w-full flex flex-col items-center">
             {loading ? (

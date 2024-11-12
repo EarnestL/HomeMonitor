@@ -5,6 +5,7 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import LandingPage from './pages/LandingPage';
 import TempPage from './pages/TempPage';
+import HumPage from './pages/HumPage';
 
 function App() {
   useEffect(() => {
@@ -22,6 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/temperature" element={<TempPage />} />
+        <Route path="/humidity" element={<HumPage />} />
       </Routes>
     </div>
   );

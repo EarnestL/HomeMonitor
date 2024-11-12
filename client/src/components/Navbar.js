@@ -22,7 +22,7 @@ function Navbar() {
     const activeBackgroundColor = 'bg-blue-50';
 
     return (
-        <nav className="fixed top-0 left-0 w-full z-10 bg-gray-200 flex justify-between px-8 py-4">
+        <nav className="fixed top-0 left-0 w-full z-10 bg-gray-200 flex justify-between items-center px-8" style={{ height: '60px' }}>
             {/* HomeMonitor title on the left */}
             <div
                 className="text-2xl font-bold text-blue-500 cursor-pointer hover:text-blue-400"
@@ -32,29 +32,53 @@ function Navbar() {
             </div>
 
             {/* Navigation tabs on the right */}
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 h-full">
                 {/* Temperature Tab */}
                 <div
-                    className={`px-4 py-2 -mb-4 rounded-t-xl font-bold cursor-pointer transition ${activeTab === '/temperature' ? `${activeBackgroundColor} text-blue-500 text-xl` : 'bg-gray-300 text-gray-600 hover:bg-gray-400 rounded-xl -mb-2'}`}
+                    className="flex items-center justify-center h-full cursor-pointer"
                     onClick={() => handleTabClick('/temperature')}
                 >
-                    Temperature
+                    <div
+                        className={`px-4 font-bold transition ${
+                            activeTab === '/temperature'
+                                ? `${activeBackgroundColor} text-blue-500 text-xl py-4 rounded-t-xl`
+                                : 'bg-gray-300 text-gray-600 hover:bg-gray-400 py-2 rounded-xl'
+                        }`}
+                    >
+                        Temperature
+                    </div>
                 </div>
 
                 {/* Humidity Tab */}
                 <div
-                    className={`px-4 py-2 -mb-4 rounded-t-xl font-bold cursor-pointer transition ${activeTab === '/humidity' ? `${activeBackgroundColor} text-blue-500 text-xl` : 'bg-gray-300 text-gray-600 hover:bg-gray-400 rounded-xl -mb-2'}`}
+                    className="flex items-center justify-center h-full cursor-pointer"
                     onClick={() => handleTabClick('/humidity')}
                 >
-                    Humidity
+                    <div
+                        className={`px-4 font-bold transition ${
+                            activeTab === '/humidity'
+                                ? `${activeBackgroundColor} text-blue-500 text-xl py-4 rounded-t-xl`
+                                : 'bg-gray-300 text-gray-600 hover:bg-gray-400 py-2 rounded-xl'
+                        }`}
+                    >
+                        Humidity
+                    </div>
                 </div>
 
                 {/* Info Tab */}
                 <div
-                    className={` text-blue-400 px-4 py-2 -mb-4 rounded-t-full font-bold cursor-pointer transition ${activeTab === '/info' ? `${activeBackgroundColor} text-xl` : 'bg-gray-300 hover:bg-gray-400 rounded-full -mb-2'}`}
+                    className="flex items-center justify-center h-full cursor-pointer"
                     onClick={() => handleTabClick('/info')}
                 >
-                    i
+                    <div
+                        className={`px-4 font-bold transition text-blue-400 ${
+                            activeTab === '/info'
+                                ? `${activeBackgroundColor} text-xl rounded-t-full py-4`
+                                : 'bg-gray-300 hover:bg-gray-400 rounded-full py-2'
+                        }`}
+                    >
+                        i
+                    </div>
                 </div>
             </div>
         </nav>
@@ -62,6 +86,10 @@ function Navbar() {
 }
 
 export default Navbar;
+
+
+
+
 
 
 

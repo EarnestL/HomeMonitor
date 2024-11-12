@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import ZScoreDisplayCard from '../universal/ZScoreDisplay';
 
-function TempZScoreCard() {
+function HumZScoreCard() {
     const [dataPoints, setDataPoints] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await fetch(`${process.env.REACT_APP_API_BASE}/temperature/z-score`);
+                const response = await fetch(`${process.env.REACT_APP_API_BASE}/humidity/z-score`);
                 const data = await response.json();
                 
                 // Extract "val" from each object in the list
                 const values = data.map(item => item.val);
                 setDataPoints(values);
             } catch (error) {
-                console.error('Error fetching temperature z-score data:', error);
+                console.error('Error fetching humidity z-score data:', error);
             } finally {
                 setLoading(false);
             }
@@ -44,8 +44,8 @@ function TempZScoreCard() {
     const currentValue = dataPoints[dataPoints.length - 1];
 
     return (
-        <ZScoreDisplayCard dataPoints={dataPoints} currentValue={currentValue} color='orange'/>
+        <ZScoreDisplayCard dataPoints={dataPoints} currentValue={currentValue} color='blue'/>
     );
 }
 
-export default TempZScoreCard;
+export default HumZScoreCard;

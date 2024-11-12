@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-function LiveTempCard({ currentTemp = 25 }) {
-    const apiEndpoint = `${process.env.REACT_APP_API_BASE}/temperature?recent=true`;
+function LiveHumCard({ currentHum = 25 }) {
+    const apiEndpoint = `${process.env.REACT_APP_API_BASE}/humidity?recent=true`;
 
     const [latestData, setLatestData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ function LiveTempCard({ currentTemp = 25 }) {
             const data = await response.json();
             const formattedData = {
                 recorded_at: new Date(data[0].recorded_at),
-                temp: data[0].val,
+                hum: data[0].val,
                 coverage: data[0].coverage,
             };
             setLatestData(formattedData);
@@ -50,9 +50,9 @@ function LiveTempCard({ currentTemp = 25 }) {
                     <p className="text-sm text-green-500 font-semibold">Live</p>
                 </div>
                 
-                {/* Temperature Display */}
+                {/* Humidity Display */}
                 <div className="text-center">
-                    <p className="text-xl text-gray-400">Temperature</p>
+                    <p className="text-xl text-gray-400">Humidity</p>
                 </div>
         </>
             ) : (
@@ -65,10 +65,10 @@ function LiveTempCard({ currentTemp = 25 }) {
             )}
             
             <div className="text-center">
-                <p className={`text-6xl font-bold mt-2 ${isLive ? "text-orange-300" : "text-gray-400"}`}>{latestData?.temp.toFixed(2) ?? 'N/A'}°C</p>
+                <p className={`text-6xl font-bold mt-2 ${isLive ? "text-blue-300" : "text-gray-400"}`}>{latestData?.hum.toFixed(2) ?? 'N/A'}%</p>
             </div>
             
-            {/* Temperature Info */}
+            {/* Humidity Info */}
             <div className="text-gray-500 text-center mt-2">
                 <p>Coverage: <span className={`font-bold ${isLive ? "text-green-600" : "text-gray-400"}`}>{`${latestData?.coverage}%` ?? 'N/A'}</span></p>
             </div>
@@ -76,6 +76,6 @@ function LiveTempCard({ currentTemp = 25 }) {
     );
 }
 
-export default LiveTempCard;
+export default LiveHumCard;
 
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import TempChartCard from './TempChartCard';
 import TempTableCard from './TempTableCard';
-import ChartPlaceHolder from './ChartPlaceHolder';
-import TablePlaceHolder from './TablePlaceHolder';
+import ChartPlaceHolder from '../universal/ChartPlaceHolder';
+import TablePlaceHolder from '../universal/TablePlaceHolder';
 
 function TempDataDisplay() {
     const [initialData, setInitialData] = useState([]);

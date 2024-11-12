@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ZScoreDisplayCard from './ZScoreDisplay';
+import ZScoreDisplayCard from '../universal/ZScoreDisplay';
 
 function TempZScoreCard() {
     const [dataPoints, setDataPoints] = useState([]);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
-import { useAnimatedData } from './useAnimatedData';
+import { useAnimatedData } from '../universal/useAnimatedData';
 
 const timeFormatter = (timestamp) => {
     const date = new Date(timestamp);

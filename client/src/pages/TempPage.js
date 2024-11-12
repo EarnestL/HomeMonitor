@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import TempDataDisplay from '../components/TempDataDisplay';
+import TempDataDisplay from '../components/temperature/TempDataDisplay';
 import LoadingDots from '../components/LoadingDots';
-import LiveTempCard from '../components/LiveTempCard';
-import TempZScoreCard from '../components/TempZScoreCard';
+import LiveTempCard from '../components/temperature/LiveTempCard';
+import TempZScoreCard from '../components/temperature/TempZScoreCard';
 
 function TempPage() {
     const [initialData, setInitialData] = useState([]);

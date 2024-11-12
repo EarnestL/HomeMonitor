@@ -120,6 +120,7 @@ void sensor_task(void *pvParameters) {
 
           sensors_event_t event;
 
+        //temperature task
           dht.temperature().getEvent(&event);
           float curr_temp = event.temperature;
 
@@ -135,6 +136,7 @@ void sensor_task(void *pvParameters) {
             Serial.println("Error reading temperature!");
           }
 
+        //humidity task
           dht.humidity().getEvent(&event);
           float curr_hum = event.relative_humidity;
 
@@ -149,11 +151,6 @@ void sensor_task(void *pvParameters) {
             hum_error_count++;
             Serial.println("Error reading humidity!");
           }
-
-          Serial.print("temp:");
-          Serial.println(avg_temp, 3);
-          Serial.print("hum:");
-          Serial.println(avg_hum, 3);
           
           xSemaphoreGive(mutex); // Give back the mutex
         }
@@ -184,11 +181,11 @@ void http_task(void *pvParameters) {
             temp_error_count = 0;
 
             //humidity
-            float coverage = hum_data_count / (hum_error_count + hum_data_count) * 100;
+            coverage = hum_data_count / (hum_error_count + hum_data_count) * 100;
             data["val"] = avg_hum;
             data["coverage"] = coverage;
 
-            int res = 0;
+            res = 0;
             while (!res){
                 res = http_request(data, "/humidity");
             }

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 
 function Navbar() {
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState(window.location.pathname);
+    const location = useLocation();
+    const [activeTab, setActiveTab] = useState(location.pathname);
 
     // Navigate and set active tab
     const handleTabClick = (path) => {
@@ -13,10 +14,10 @@ function Navbar() {
         setActiveTab(path);
     };
 
-    // Sync activeTab with the current path on page load or refresh
+    // Sync activeTab with the current path on page load or route change
     useEffect(() => {
-        setActiveTab(window.location.pathname);
-    }, []);
+        setActiveTab(location.pathname);
+    }, [location.pathname]);
 
     // Define the consistent background color for selected tabs and the page
     const activeBackgroundColor = 'bg-blue-50';
@@ -86,6 +87,7 @@ function Navbar() {
 }
 
 export default Navbar;
+
 
 
 

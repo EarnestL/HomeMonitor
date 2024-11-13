@@ -25,7 +25,7 @@ function Navbar() {
         <nav className="fixed top-0 left-0 w-full z-10 bg-gray-200 flex justify-between items-center px-8" style={{ height: '60px' }}>
             {/* HomeMonitor title on the left */}
             <div
-                className="text-2xl font-bold text-blue-500 cursor-pointer hover:text-blue-400"
+                className="text-2xl font-bold text-purple-400 cursor-pointer hover:text-purple-300"
                 onClick={() => handleTabClick('/')}
             >
                 HomeMonitor
@@ -68,11 +68,11 @@ function Navbar() {
                 {/* Info Tab */}
                 <div
                     className="flex items-center justify-center h-full cursor-pointer"
-                    onClick={() => handleTabClick('/info')}
+                    onClick={() => handleTabClick('/about')}
                 >
                     <div
                         className={`px-4 font-bold transition text-blue-400 ${
-                            activeTab === '/info'
+                            activeTab === '/about'
                                 ? `${activeBackgroundColor} text-xl rounded-t-full py-4`
                                 : 'bg-gray-300 hover:bg-gray-400 rounded-full py-2'
                         }`}

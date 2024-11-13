@@ -7,9 +7,6 @@ module.exports = {
     extend: {
       fontFamily: {
         'roboto': ['Roboto', 'sans-serif', 'Poppins'],
-      }, 
-      colors: {
-        customGray: '#16B364', // Added the # for the hex color value
       },
       keyframes: {
         'bounce-sequential': {
@@ -25,12 +22,17 @@ module.exports = {
           '0%, 100%': { transform: 'scale(1)', opacity: '1' },
           '50%': { transform: 'scale(1.3)', opacity: '0.6' },
         },
+        puff: {
+          '0%, 100%': { transform: 'scale(1)' },
+          '30%': { transform: 'scale(1.1)' },
+        },
       },
       animation: {
         'bounce-1': 'bounce-sequential 1.2s ease-in-out 0s infinite',
         'bounce-2': 'bounce-sequential 1.2s ease-in-out 0.2s infinite',
         'bounce-3': 'bounce-sequential 1.2s ease-in-out 0.4s infinite',
         'smooth-pulse': 'smoothPulse 2s infinite ease-in-out',
+        'puff': 'puff 5s ease-in-out infinite',
       },
     },
   },

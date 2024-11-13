@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 function AboutPage() {
     return (
@@ -28,6 +30,16 @@ function AboutPage() {
                     </p>
                 </div>
             </section>
+            <footer className="mt-12">
+                <a 
+                    href="https://github.com/EarnestL/HomeMonitor" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="text-gray-500 hover:text-gray-700"
+                >
+                    <FontAwesomeIcon icon={faGithub} className="h-8 w-8" />
+                </a>
+            </footer>
         </div>
     );
 }

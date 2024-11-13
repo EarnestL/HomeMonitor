@@ -8,7 +8,7 @@ function AboutPage() {
                 <h1 className="text-4xl font-bold text-gray-600 mb-4">About HomeMonitor</h1>
                 <p className="text-lg text-gray-500 max-w-xl">
                     HomeMonitor is your essential home dashboard, designed to help you monitor key aspects of your home environment. 
-                    Monitoring covers various elements such as ambient temperature, humidity, electricity usage, and many more. 
+                    Monitoring covers various elements such as ambient temperature, humidity, light levels, and many more. 
                     Stay informed and comfortable with real-time insights, alerts, and intuitive graphics.
                 </p>
             </header>

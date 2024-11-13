@@ -19,7 +19,7 @@ function App() {
     };
   }, []);
   return (
-    <div className="flex-1 flex flex-col bg-blue-50 min-h-screen text-gray-100 font-mono">
+    <div className="flex-1 flex flex-col bg-gray-50 min-h-screen text-gray-100 font-mono">
       <Navbar />
       <Routes>
         <Route path="/" element={<LandingPage />} />

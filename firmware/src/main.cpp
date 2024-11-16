@@ -4,62 +4,39 @@
 #include <DHT.h>
 #include <DHT_U.h>
 #include <ArduinoJson.h>
+#include <WebSocketsServer.h>
 
+#define WEBSOCKET_PORT 81
 #define DHTPIN 2
 #define DHTTYPE DHT11
+#define LIGHT1PIN 32
 #define TOLERANCE 10
 
 const char* ssid = WIFI_SSID;
 const char* password = WIFI_PASSWORD;
 const char* serverUrl = API_BASE_URL;
 
-/*
-void loop() {
+// Static IP configuration
+IPAddress local_IP(10, 0, 0, 15);    // Desired static IP
+IPAddress gateway(10, 0, 0, 1);       // Router's gateway IP
+IPAddress subnet(255, 255, 255, 0);   // Subnet mask
 
-    if (WiFi.status() == WL_CONNECTED) {
-        HTTPClient http;
-        http.begin(serverUrl); // No need to set insecure mode for basic HTTPS requests on ESP32
-
-        int httpResponseCode = http.GET();
-        if (httpResponseCode > 0) {
-            String response = http.getString();
-            Serial.println(httpResponseCode);
-            Serial.println(response);
-        } else {
-            Serial.print("Error on sending GET: ");
-            Serial.println(httpResponseCode);
-        }
-        http.end();
-    }
-    delay(10000); // Send data every 10 seconds
-    */
-
-/*
-    sensors_event_t event;
-    dht.temperature().getEvent(&event);
-    if (!isnan(event.temperature)) {
-        Serial.print("Temperature: ");
-        Serial.print(event.temperature);
-        Serial.println(" °C");
-    } else {
-        Serial.println("Error reading temperature!");
-    }
-
-    dht.humidity().getEvent(&event);
-    if (!isnan(event.relative_humidity)) {
-        Serial.print("Humidity: ");
-        Serial.print(event.relative_humidity);
-        Serial.println(" %");
-    } else {
-        Serial.println("Error reading humidity!");
-    }
-
-}
-*/
 
 // Task Handles
 TaskHandle_t sensor_task_handle = NULL;
 TaskHandle_t http_task_handle = NULL;
+TaskHandle_t webSocketTaskHandle = NULL;
+TaskHandle_t prTaskHandle = NULL;
+
+//Websocket data structures
+struct lights_struct {
+    bool lamp1;
+    bool lamp2;
+    bool lamp3;
+};
+struct websocket_data {
+    lights_struct lights;
+};
 
 // Shared Resource
 int temp_error_count = 0;
@@ -69,28 +46,44 @@ int hum_data_count = 0;
 float avg_temp = 0;
 float avg_hum = 0;
 
+//global socket_data
+websocket_data socket_data = {
+    {false, false, false}
+};
+
 // Mutex Handle
 SemaphoreHandle_t mutex;
 
 DHT_Unified dht(DHTPIN, DHTTYPE);
+WebSocketsServer webSocket = WebSocketsServer(WEBSOCKET_PORT);
 
 // helper functions
 void wifi_init();
 void wifi_end();
 int http_request(JsonDocument&, String);
+String get_socket_data();
+// WebSocket event handler
+void webSocketEvent(uint8_t, WStype_t, uint8_t*, size_t);
 
 // Task Function Prototypes
-void sensor_task(void *pvParameters);
-void http_task(void *pvParameters);
+void sensor_task(void *);
+void http_task(void *);
+void webSocketTask(void*);
+void lightsTask(void*);
 
 void setup() {
     Serial.begin(115200);
-
+    wifi_init();
+    // Start sensor
     dht.begin();
+    // Start WebSocket server
+    webSocket.begin();
+    webSocket.onEvent(webSocketEvent);
 
+    pinMode(32, INPUT);
     // Create the mutex before creating tasks
     mutex = xSemaphoreCreateMutex();
-
+/*
     xTaskCreate(
         sensor_task,
         "Sensor Task",
@@ -107,10 +100,52 @@ void setup() {
         NULL,
         1,
         &http_task_handle
+    );*/
+
+    xTaskCreate(
+        webSocketTask, 
+        "WebSocket Task", 
+        4096, 
+        NULL, 
+        1, 
+        &webSocketTaskHandle
+    );
+
+    xTaskCreate(
+        lightsTask, 
+        "PR Task", 
+        4096, 
+        NULL, 
+        1, 
+        &prTaskHandle
     );
 }
 
 void loop() {
+}
+
+void lightsTask(void* pv){
+    while(true){
+        if(analogRead(LIGHT1PIN) > 1000 && !socket_data.lights.lamp1){
+            socket_data.lights.lamp1 = true;
+            String json_data = get_socket_data();
+
+            webSocket.broadcastTXT(json_data);
+        }else if (analogRead(LIGHT1PIN) <= 1000 && socket_data.lights.lamp1){
+            socket_data.lights.lamp1 = false;
+            String json_data = get_socket_data();
+
+            webSocket.broadcastTXT(json_data);
+        }
+    }
+}
+
+// Task for handling WebSocket server
+void webSocketTask(void *pvParameters) {
+    while (true) {
+        webSocket.loop(); // Keep WebSocket server running
+        vTaskDelay(10 / portTICK_PERIOD_MS); // Delay to yield to other tasks
+    }
 }
 
 // Task 1 - Lower Priority Task
@@ -202,14 +237,21 @@ void http_task(void *pvParameters) {
 }
 
 void wifi_init(){
+    // Configure static IP
+    if (!WiFi.config(local_IP, gateway, subnet)) {
+        Serial.println("Static IP configuration failed!");
+    }
+
     WiFi.begin(ssid, password);
 
     while (WiFi.status() != WL_CONNECTED) {
         delay(1000);
         Serial.print("Connecting to WiFi ");
-        Serial.println(WIFI_SSID);
+        Serial.println(ssid);
     }
     Serial.println("Connected to WiFi");
+        Serial.print("ESP32 IP Address: ");
+    Serial.println(WiFi.localIP());
 }
 
 void wifi_end(){
@@ -249,6 +291,41 @@ int http_request(JsonDocument& data, String route){
     return 1;
 }
 
+// WebSocket event handler
+void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length) {
+    if (type == WStype_TEXT) {
+        String message = String((char*)payload);
+        Serial.print(message);
 
+        // Example action: toggle LED based on received message
+        if (message == "get_lights_data") {
+            digitalWrite(2, HIGH); // Toggle LED
+            vTaskDelay(1000 / portTICK_PERIOD_MS);
+            digitalWrite(2, LOW); // Toggle LED
 
+            String json_data = get_socket_data();
+
+            webSocket.sendTXT(num, json_data);
+            Serial.println("message received and sent");
+        } else {
+            Serial.print("message wrong");
+        }
+    }
+}
+
+String get_socket_data(){
+
+    StaticJsonDocument<200> jsonDoc;
+
+    JsonObject lights = jsonDoc.createNestedObject("lights");
+    lights["lamp1"] = socket_data.lights.lamp1;
+    lights["lamp2"] = socket_data.lights.lamp2;
+    lights["lamp3"] = socket_data.lights.lamp3;
+
+    // Serialize JSON to a string
+    String jsonString;
+    serializeJson(jsonDoc, jsonString);
+
+    return jsonString;
+}
 

@@ -29,13 +29,12 @@ TaskHandle_t webSocketTaskHandle = NULL;
 TaskHandle_t prTaskHandle = NULL;
 
 //Websocket data structures
-struct lights_struct {
-    bool lamp1;
-    bool lamp2;
-    bool lamp3;
+struct light_struct {
+    String name;
+    bool isOn;
 };
 struct websocket_data {
-    lights_struct lights;
+    light_struct lights[3];
 };
 
 // Shared Resource
@@ -48,7 +47,11 @@ float avg_hum = 0;
 
 //global socket_data
 websocket_data socket_data = {
-    {false, false, false}
+    {
+        {"Lamp 1", false},
+        {"Lamp 2", false},
+        {"Lamp 3", false}
+    }
 };
 
 // Mutex Handle
@@ -126,13 +129,13 @@ void loop() {
 
 void lightsTask(void* pv){
     while(true){
-        if(analogRead(LIGHT1PIN) > 1000 && !socket_data.lights.lamp1){
-            socket_data.lights.lamp1 = true;
+        if(analogRead(LIGHT1PIN) > 1000 && !socket_data.lights[0].isOn){
+            socket_data.lights[0].isOn = true;
             String json_data = get_socket_data();
 
             webSocket.broadcastTXT(json_data);
-        }else if (analogRead(LIGHT1PIN) <= 1000 && socket_data.lights.lamp1){
-            socket_data.lights.lamp1 = false;
+        }else if (analogRead(LIGHT1PIN) <= 1000 && socket_data.lights[0].isOn){
+            socket_data.lights[0].isOn = false;
             String json_data = get_socket_data();
 
             webSocket.broadcastTXT(json_data);
@@ -317,10 +320,19 @@ String get_socket_data(){
 
     StaticJsonDocument<200> jsonDoc;
 
-    JsonObject lights = jsonDoc.createNestedObject("lights");
-    lights["lamp1"] = socket_data.lights.lamp1;
-    lights["lamp2"] = socket_data.lights.lamp2;
-    lights["lamp3"] = socket_data.lights.lamp3;
+    JsonArray lights = jsonDoc.createNestedArray("lights");
+    
+    JsonObject lamp1 = lights.createNestedObject();
+    lamp1["name"] = socket_data.lights[0].name;
+    lamp1["isOn"] = socket_data.lights[0].isOn;
+
+    JsonObject lamp2 = lights.createNestedObject();
+    lamp2["name"] = socket_data.lights[1].name;
+    lamp2["isOn"] = socket_data.lights[1].isOn;
+
+    JsonObject lamp3 = lights.createNestedObject();
+    lamp3["name"] = socket_data.lights[2].name;
+    lamp3["isOn"] = socket_data.lights[2].isOn;
 
     // Serialize JSON to a string
     String jsonString;

@@ -66,6 +66,22 @@ function Navbar() {
                     </div>
                 </div>
 
+                {/* House Overview Tab */}
+                <div
+                    className="flex items-center justify-center h-full cursor-pointer"
+                    onClick={() => handleTabClick('/houseOverview')}
+                >
+                    <div
+                        className={`px-4 font-bold transition ${
+                            activeTab === '/houseOverview'
+                                ? `${activeBackgroundColor} text-blue-500 text-xl py-4 rounded-t-xl`
+                                : 'bg-gray-300 text-gray-600 hover:bg-gray-400 py-2 rounded-xl'
+                        }`}
+                    >
+                        Overview
+                    </div>
+                </div>
+
                 {/* Info Tab */}
                 <div
                     className="flex items-center justify-center h-full cursor-pointer"

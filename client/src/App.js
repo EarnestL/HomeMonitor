@@ -7,6 +7,8 @@ import LandingPage from './pages/LandingPage';
 import TempPage from './pages/TempPage';
 import HumPage from './pages/HumPage';
 import AboutPage from './pages/AboutPage';
+import HouseOverviewPage from './pages/HouseOverviewPage';
+import SamplePage from './pages/SamplePage';
 
 function App() {
   useEffect(() => {
@@ -26,6 +28,8 @@ function App() {
         <Route path="/temperature" element={<TempPage />} />
         <Route path="/humidity" element={<HumPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/houseOverview" element={<HouseOverviewPage />} />
+        <Route path="/sample" element={<SamplePage />} />
       </Routes>
     </div>
   );

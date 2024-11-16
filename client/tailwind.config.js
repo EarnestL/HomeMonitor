@@ -26,6 +26,20 @@ module.exports = {
           '0%, 100%': { transform: 'scale(1)' },
           '30%': { transform: 'scale(1.1)' },
         },
+        glow: {
+          '0%': {
+            boxShadow: '0 0 10px rgba(255, 255, 0, 0.6), 0 0 20px rgba(255, 255, 0, 0.6)',
+            backgroundColor: 'rgba(255, 255, 0, 0.4)',
+          },
+          '50%': {
+            boxShadow: '0 0 20px rgba(255, 255, 0, 0.8), 0 0 40px rgba(255, 255, 0, 0.8)',
+            backgroundColor: 'rgba(255, 255, 0, 0.6)',
+          },
+          '100%': {
+            boxShadow: '0 0 10px rgba(255, 255, 0, 0.6), 0 0 20px rgba(255, 255, 0, 0.6)',
+            backgroundColor: 'rgba(255, 255, 0, 0.4)',
+          },
+        },
       },
       animation: {
         'bounce-1': 'bounce-sequential 1.2s ease-in-out 0s infinite',
@@ -33,6 +47,7 @@ module.exports = {
         'bounce-3': 'bounce-sequential 1.2s ease-in-out 0.4s infinite',
         'smooth-pulse': 'smoothPulse 2s infinite ease-in-out',
         'puff': 'puff 5s ease-in-out infinite',
+        'glow': 'glow 1.5s infinite',
       },
     },
   },

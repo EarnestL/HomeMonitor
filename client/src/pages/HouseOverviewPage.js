@@ -2,49 +2,56 @@ import React, { useState, useEffect } from 'react';
 import FloorPlan from '../components/FloorPlan';
 import SideBar from '../components/SideBar';
 import LoadingDots from '../components/LoadingDots'
+import mqtt from "mqtt";
 
 const HouseOverviewPage = () => {
   const [highlightedLight, setHighlightedLight] = useState(null);
   const [loading, setLoading] = useState(true); // State to track loading
-  const [webSocket, setWebSocket] = useState(null);
   const [socketAlive, setSocketAlive] = useState(false);
   const [receivedData, setReceivedData] = useState(null);
 
-  // WebSocket server URL
-  const wsUrl = "ws://10.0.0.15:81";
+  const brokerUrl = process.env.REACT_APP_MQTT_BROKER;
+  const subscribedTopic = "iot/home/lights/status";
+  const publishTopic = "web/home/lights/status";
 
-  // Initialize WebSocket connection
   useEffect(() => {
-      const ws = new WebSocket(wsUrl);
-      setWebSocket(ws);
+    // MQTT connection options
+    const options = {
+      username: process.env.REACT_APP_MQTT_USERNAME,
+      password: process.env.REACT_APP_MQTT_PASSWORD,
+      reconnectPeriod: 1000, // Reconnect after 1 second if disconnected
+    };
 
-      // WebSocket event handlers
-      ws.onopen = () => {
-          console.log("WebSocket connected");
-          setSocketAlive(true);
-          ws.send("get_lights_data");
-      };
+    // Connect to the MQTT broker
+    const client = mqtt.connect(brokerUrl, options);
 
-      ws.onmessage = (event) => {
-          const data = JSON.parse(event.data);
-          console.log("Message from server:", data);
-          setReceivedData(data);
-      };
+    client.on("connect", () => {
+      console.log("Connected to MQTT broker");
+      setSocketAlive(true);
+      client.subscribe(subscribedTopic, (err) => {
+        if (!err) {
+          console.log(`Subscribed to topic: ${subscribedTopic}`);
+          client.publish(publishTopic, "GetStatus");
+        } else {
+          console.error("Subscription error:", err);
+        }
+      });
+    });
 
-      ws.onclose = () => {
-          console.log("WebSocket disconnected");
-          setSocketAlive(false);
-      };
+    client.on("message", (subscribedTopic, message) => {
+      const data = JSON.parse(message);
+      setReceivedData(data);
+    });
 
-      ws.onerror = (error) => {
-          console.error("WebSocket error:", error);
-      };
+    client.on("error", (err) => {
+      console.error("MQTT connection error:", err);
+      setSocketAlive(false);
+    });
 
-      // Cleanup on component unmount
-      return () => {
-          ws.close();
-      };
-  }, [wsUrl]);
+    return () => {
+      client.end(); // Disconnect from the broker when the component unmounts
+    };
+  }, []);
 
   const lights = receivedData != null ? receivedData.lights : 
     [

@@ -21,12 +21,12 @@ function AboutPage() {
                 <div>
                     <h2 className="text-2xl font-semibold text-gray-600 mb-2">Live Demonstration</h2>
                     <p className="text-gray-500">
-                        My home is being monitored and live data is being utilized.
+                        Three components are available: 
+                        <a href="/temperature" className="text-orange-400 font-semibold hover:text-orange-300"> Temperature</a>, 
+                        <a href="/humidity" className="text-blue-400 font-semibold hover:text-blue-300"> Humidity</a>, and 
+                        <a href="/houseOverview" className="text-yellow-500 font-semibold hover:text-yellow-400"> Lights</a>.
                         <br/>
-                        Two components are currently available: 
-                        <a href="/temperature" className="text-orange-400 font-semibold hover:text-orange-300"> Temperature</a> and 
-                        <a href="/humidity" className="text-blue-400 font-semibold hover:text-blue-300"> Humidity</a>. 
-                        DHT11 sensor is being used to collect both of the attributes.
+                        DHT11 sensors and photoresistors are being utilized respectively.
                     </p>
                 </div>
             </section>

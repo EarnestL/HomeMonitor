@@ -3,9 +3,7 @@ import floorPlan from '../assets/floorplan.png';
 import lamp1 from '../assets/lamp1.png';
 import lamp2 from '../assets/lamp2.png';
 import lamp3 from '../assets/lamp3.png';
-import lamp1Select from '../assets/lamp1Select.png';
-import lamp2Select from '../assets/lamp2Select.png';
-import lamp3Select from '../assets/lamp3Select.png';
+import lamp4 from '../assets/lamp4.png';
 
 const FloorPlan = ({ lights, highlightedLight, setHighlightedLight }) => {
   let isNight = true;
@@ -31,8 +29,8 @@ const FloorPlan = ({ lights, highlightedLight, setHighlightedLight }) => {
             onMouseEnter={() => setHighlightedLight('Lamp 1')}
             onMouseLeave={() => setHighlightedLight(null)}
                       style={{
-              top: '88%', // Match the lamp's vertical position
-              left: '48.8%', // Match the lamp's horizontal position
+              top: '57%', // Match the lamp's vertical position
+              left: '23%', // Match the lamp's horizontal position
               width: '5%',
               transform: 'translate(-50%, -50%)', // Center the glow
               zIndex: 15, // Ensure glow is above the lamp image
@@ -40,14 +38,14 @@ const FloorPlan = ({ lights, highlightedLight, setHighlightedLight }) => {
             }}
           ></div>
           <img
-            src={lamp1Select}
+            src={lamp1}
             alt="Lamp 1"
             className={`absolute ${
               (highlightedLight === 'Lamp 1')||(highlightedLight === null) ? 'opacity-100' : 'opacity-20'}
               `}
             style={{
-              top: '88%', // Adjust vertical position (relative to floor plan)
-              left: '48.8%', // Adjust horizontal position (relative to floor plan)
+              top: '57%', // Adjust vertical position (relative to floor plan)
+              left: '23%', // Adjust horizontal position (relative to floor plan)
               width: '5%', // Scale by percentage relative to floor plan
               transform: 'translate(-50%, -50%)', // Center the lamp on specified coordinates
               zIndex: highlightedLight === 'Lamp 1' ? 10 : 1, // Ensure visibility during highlight
@@ -71,7 +69,7 @@ const FloorPlan = ({ lights, highlightedLight, setHighlightedLight }) => {
             }}
           ></div>
           <img
-            src={lamp2Select}
+            src={lamp2}
             alt="Lamp 2"
             className={`absolute ${
               (highlightedLight === 'Lamp 2')||(highlightedLight === null) ? 'opacity-100' : 'opacity-20'}
@@ -102,7 +100,7 @@ const FloorPlan = ({ lights, highlightedLight, setHighlightedLight }) => {
             }}
           ></div>
           <img
-            src={lamp3Select}
+            src={lamp3}
             alt="Lamp 3"
             className={`absolute ${
               (highlightedLight === 'Lamp 3')||(highlightedLight === null) ? 'opacity-100' : 'opacity-20'}
@@ -113,6 +111,37 @@ const FloorPlan = ({ lights, highlightedLight, setHighlightedLight }) => {
               width: '5%', // Scale by percentage relative to floor plan
               transform: 'translate(-50%, -50%)', // Center the lamp on specified coordinates
               zIndex: highlightedLight === 'Lamp 3' ? 10 : 1, // Ensure visibility during highlight
+            }}
+          />
+
+          {/* Lamp 4 */}
+          <div
+            className={`absolute aspect-[1/1]
+                      ${(highlightedLight === 'Lamp 4' || highlightedLight === null) ? 'opacity-100' : 'opacity-20'}
+                      ${lights.find(light=>light.name === 'Lamp 4')?.isOn? 'transition-opacity duration-300 animate-glow' : ''}`}
+            //onMouseEnter={() => setHighlightedLight('Lamp 4')}
+            //onMouseLeave={() => setHighlightedLight(null)}
+                      style={{
+              top: '88%', // Match the lamp's vertical position
+              left: '48.8%', // Match the lamp's horizontal position
+              width: '5%',
+              transform: 'translate(-50%, -50%)', // Center the glow
+              zIndex: 15, // Ensure glow is above the lamp image
+              borderRadius: '50%', // Make it circular
+            }}
+          ></div>
+          <img
+            src={lamp4}
+            alt="Lamp 4"
+            className={`absolute ${
+              (highlightedLight === 'Lamp 4')||(highlightedLight === null) ? 'opacity-100' : 'opacity-20'}
+              `}
+            style={{
+              top: '88%', // Adjust vertical position (relative to floor plan)
+              left: '48.8%', // Adjust horizontal position (relative to floor plan)
+              width: '5%', // Scale by percentage relative to floor plan
+              transform: 'translate(-50%, -50%)', // Center the lamp on specified coordinates
+              zIndex: highlightedLight === 'Lamp 4' ? 10 : 1, // Ensure visibility during highlight
             }}
           />
         </div>
